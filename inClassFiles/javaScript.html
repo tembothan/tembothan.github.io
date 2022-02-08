@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>javascript in-class</title>
+        <link rel="stylesheet" href="" />
+    </head>
+
+    <body>
+        <h1 id="header1"></h1>
+
+        <script src="./math.js"></script>
+        <script>
+            //interacting with DOM
+            var languageName = "Javascript"
+            document.getElementById("header1").innerHTML = "Intro to " + languageName;
+
+            //number
+            var number = 7;
+            console.log(number);
+
+            //equations
+            number = number + 11;
+            console.log(number);
+            console.log(number, number/3);
+            
+            //strings
+            var simpleString = "This is a string in Javascript";
+            console.log(simpleString + ".");
+
+            //boolean 
+            var booleanValue = number < 8;
+            console.log(booleanValue);
+
+            //array
+            var simpleArray = [1, 3, 0, "one", "three", "zero", true];
+            console.log(simpleArray[2], simpleArray[5]);
+
+            //object
+            var firstObject = {name: "one", value: 01};
+            console.log(firstObject);
+            console.log(firstObject.name);
+
+            //nested object & array
+            var scndObject = {name: [1,0,3], value: {false: true}};
+            console.log(scndObject.name[1]);
+            console.log(scndObject.value.false);
+
+            //function
+            var firstFunction = function(){
+                console.log(scndObject);
+                console.log(scndObject.name[2]);
+                scndObject.name[2] = 24;
+                console.log(scndObject.name[2]);
+                console.log(scndObject);
+            }
+            firstFunction();
+
+            var scndFunction = function(txt){
+                var greet = "Greetings, " + txt;
+                return greet;
+            }
+
+            var returnString = scndFunction("Hello World");
+            console.log(returnString);
+
+            squarify(100);
+
+        </script>
+    </body>
+</html>
