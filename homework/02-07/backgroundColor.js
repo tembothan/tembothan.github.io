@@ -13,7 +13,7 @@ document.addEventListener("click", function(){
     // assign the background color of the page to be the random number in the arravs value
     document.body.style.backgroundColor = arrayOfColors[newColor];
 
-    // change the color & font of the text based on the background for legibility
+    // change the color (for legibility) & font of the text based on the background
     // Bug exists with newColor = 4 (?)
     if (newColor == 0 || newColor == 4){
         // When you use getElementsByClassName you receive a collection of elements so you need to specify the element in the collection
