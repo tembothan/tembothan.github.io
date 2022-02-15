@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>D3 Intro</title>
+        <script src="https://d3js.org/d3.v7.min.js"></script>
+
+        <style>
+            .big{
+            font-size: 75px;
+        }
+        </style>
+        
+    </head>
+
+    <body>
+        <h1 id="title">Intro to D3</h1>
+        <svg id="circleCanvas" width="100%"  height="500px">
+
+        </svg>
+
+        <script>
+            var title = d3.select('#title')
+            .attr("class", "big")
+            .style("color", "cadetblue");
+
+            var data2020 = [
+            {
+                    country: "ice",
+                    value: 20,
+                    color: "dodgerblue"
+                },
+                {
+                    country: "usa",
+                    value: 10,
+                    color: "darkseagreen"
+                },
+                {
+                    country: "aus",
+                    value: 15,
+                    color: "royalblue"
+                }
+            ];
+
+            var data2021 = [
+                {
+                    country: "ice",
+                    value: 25,
+                    color: "dodgerblue"
+                },
+                {
+                    country: "usa",
+                    value: 7,
+                    color: "darkseagreen"
+                }
+            ];
+
+            var data2022 = [
+            {
+                    country: "ice",
+                    value: 20,
+                    color:"dodgerblue"
+                },
+                {
+                    country: "usa",
+                    value: 17,
+                    color: "darkseagreen"
+                },
+                {
+                    country: "aus",
+                    value: 5,
+                    color:"royalblue"
+                }
+            ];
+
+            function drawCircles(dataArray){
+
+                var circles = d3.select("#circleCanvas")
+                .selectAll("circle")
+                .data(dataArray, function(currentDataPoint){
+                    console.log(currentDataPoint.country);
+                    return currentDataPoint.country;
+                });
+
+                circles.transition().duration(2000)
+                .attr("cx", function(d){
+                    return d.value * 10;
+                })
+                .attr("r", function(d){
+                    return d.value;
+                });
+                
+
+                circles.enter().append("circle")
+                .attr("class", "svgCircles")
+                .attr("cy", 100)
+                .attr("cx", function(d){
+                    return d.value * 10;
+                })
+                .transition(2000)
+                .attr("r", function(d){
+                    return d.value * 5;
+                })
+                .style("fill", function(d){
+                    return d.color;
+                });
+
+                circles.exit()
+                .transition()
+                .duration(2000)
+                .remove();
+            };
+
+            drawCircles(data2020);
+        </script>
+    </body>
+</html>
