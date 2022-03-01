@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Data Manipulation</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+  </head>
+
+  <body>
+    <script>
+        d3.csv("sampleCSV.csv")
+        .then(function(csvFile){
+            console.log(csvFile);
+        })
+        .catch(function(error){
+            console.log(error);
+        });
+
+        d3.text("sampleTextFile.txt")
+        .then(function(textFile){
+            console.log(textFile);
+        })
+        .catch(function(error){
+            console.log(error);
+        });
+
+        d3.text("sampleJSON.json")
+        .then(function(jsonFile){
+            console.log(jsonFile);
+        })
+        .catch(function(error){
+            console.log(error);
+        });
+
+        var url = "https://datausa.io/api/data?measures=Population&year=latest";
+
+        d3.json(url)
+        .then(function(data) {
+            console.log(data);
+        });
+    </script>
+  </body>
+</html>
