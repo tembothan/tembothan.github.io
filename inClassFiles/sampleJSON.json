@@ -1,0 +1,22 @@
+[
+    {
+        "country": "usa",
+        "value": 3,
+        "year": 2020
+    },
+    {
+        "country": "usa",
+        "value": 13,
+        "year": 2021
+    },
+    {
+        "country": "uk",
+        "value": 4,
+        "year": 2020
+    },
+    {
+        "country": "uk",
+        "value": 7,
+        "year": 2021
+    }
+]
