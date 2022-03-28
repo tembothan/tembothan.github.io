@@ -1,5 +1,5 @@
 body {
-	background: linear-gradient(-75deg, #FAE4C2, #f0611e, #7b9aff, #f0fffc);
+	background: linear-gradient(-75deg, #FAE4C295, #f0611e80, #7b9aff50, #f0fffc80);
 	background-size: 400% 400%;
 	animation: gradient 15s ease infinite;
 	height: 100vh;
@@ -16,7 +16,7 @@ a:link {
   }
   
   a:visited {
-    color: #fffae0;
+    color: #353536;
   }
   
   a:hover {
