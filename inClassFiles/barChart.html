@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Bar Chart</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style> 
+        body {
+            margin: 0;
+        } 
+    </style>
+    </head>
+    <body>
+    <svg id="barChart">
+        <g id="shapes"></g>
+        <g id="x"></g>
+        <g id="y"></g>
+    </svg>
+
+    <script>
+        var url = "https://whiteboard.datawheel.us/api/google-analytics/realtime/random";
+        var frequency = 5 * 1000; // 10 seconds
+        var dataMax = 5; // max size of the array
+        var data = []; // data array
+
+        var width = window.innerWidth; // width of the screen window
+        var height = window.innerHeight; // height of the screen height
+
+        var margin = {top: 20, right: 20, bottom: 50, left: 100};
+
+        var chartWidth = width - margin.left - margin.right;
+        var chartHeight = height - margin.top - margin.bottom;
+
+        var svg = d3.select("#barChart").attr("width", width).attr("height", height);
+        var barWidth = width/dataMax;
+
+        var x = d3.scaleLinear()
+        .domain([dataMax, 1])
+        .range([margin.left, margin.left+chartWidth-barWidth]);
+
+        function fetchData(){
+
+          d3.json(url)
+          .then(function(users) {
+
+              data.unshift({users: users, timestamp: new Date()});
+              if (data.length > dataMax) {
+                  data.pop();
+              }
+
+              var maxUsers = d3.max(data, function(d){
+                  return d.users;
+              });
+
+              var y = d3.scaleLinear()
+            .domain([0, maxUsers])
+            .range([margin.top + chartHeight, margin.top]);
+
+              var barHeight = d3.scaleLinear()
+              .domain([0, maxUsers])
+              .range([0, chartHeight]);
+
+              //data binding
+              var bars = svg.select("#shapes").selectAll(".bar")
+                .data(data, function(d) {
+                return d.timestamp;
+            });
+
+              //entering bars
+              bars.enter().append("rect")
+              .attr("class", "bar")
+              .attr("width", barWidth)
+              .attr("x", function(d, i){
+                  return x(i+1);
+              })
+              .attr("height", function(d){
+                  return barHeight(d.users);
+              })
+              .attr("y", y(0)); 
+
+              //updating bars
+              bars.transition().duration(frequency/2)
+              .attr("x", function(d, i){
+                  return x(i+1);
+              })
+              .attr("height", function(d){
+                  return barHeight(d.users);
+              })
+              .attr("y", function(d) {
+                    return y(d.users);
+                });
+
+              //exiting bars
+              bars.exit().remove(); 
+          });
+        }
+
+        fetchData();
+        setInterval(fetchData, frequency);
+    </script>
+  </body>
+</html>
