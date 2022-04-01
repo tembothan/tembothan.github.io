@@ -1,0 +1,46 @@
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  #banner{
+      background-color: #c07ff5;
+      background-position: 50% 100%;
+      background-size: cover;
+      padding: 20vh 20px;
+      text-align: center;
+  }
+
+  .section {
+    display: flex;
+    flex-direction: row;
+    padding: 50px;
+  }
+  
+  .section p {
+    flex: 1;
+  }
+  
+  .section svg {
+    border: 2px solid rgb(255, 103, 2);
+    flex: 2;
+    height: 300px;
+    margin: 20px;
+  }
+
+  @media (max-width: 600px) {
+    .section {
+      flex-direction: column;
+    }
+    .section svg {
+      flex: none;
+    }
+  }
+
+  #tooltip {
+    background-color: #edd7ff;
+    border: 1px;
+    padding: 5px;
+    display: none;
+    position: absolute;
+  }
