@@ -1,0 +1,60 @@
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  #banner{
+      background-color: #3a6664;
+      background-position: 50% 100%;
+      background-size: cover;
+      padding: 20vh 20px;
+      text-align: center;
+  }
+
+  .section {
+    display: flex;
+    flex-direction: row;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 25px;
+    padding-bottom: 35px;
+  }
+
+  h1{
+    font-size:5vw;
+    flex: 1;
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .section p {
+    flex: 1;
+  }
+  
+  .section svg {
+    border: 3px solid rgb(74, 241, 233);
+    flex: 2;
+    height: 300px;
+    margin: 20px;
+  }
+
+  @media (max-width: 600px) {
+    .section {
+      flex-direction: column;
+    }
+    .section svg {
+      flex: none;
+    }
+  }
+
+  hr.solid {
+    border-top: 3px solid #bbb;
+  }
+
+  #tooltip {
+    background-color: #d3f7e8;
+    border: 1px;
+    padding: 5px;
+    display: none;
+    position: absolute;
+  }
