@@ -1,12 +1,12 @@
 // set dimensions and margins of graph
-var margin = {top: 10, right: 30, bottom: 30, left: 60},
-    width = (screen.width-600) - margin.left - margin.right,
+var margin = {top: 10, right: 50, bottom: 30, left: 50},
+    width = (screen.width-400) - margin.left - margin.right,
     height = 550 - margin.top - margin.bottom;
 
     console.log(screen.width)
 
 // append svg object to the body of the page
-var svg = d3.select("#chart1")
+var svg = d3.select("#scatterPlot")
   .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -37,20 +37,21 @@ d3.csv("ThePrisonIndustryData2020Cleaned.csv", function(data) {
       .attr("r", 3)
       .attr("cx", data.Employees.replace(/\s/g, ''))
       .attr("cy", data.AnnualRevenuesMn.replace(/\s/g, ''))
-      .style("fill", function() {
+      .style("fill", "none")
+      .style("stroke", function() {
         switch(data.Continent) {
         case 'North America':
           return "#F9ACFA";
         case 'Africa':
-          return "#E000D1";
+          return "#82FFD2";
         case 'Asia':
-          return "#FAF8A9";          
+          return "#E000D1";
         case 'Europe':
-          return '#5F80FA';          
+          return "#FAF8A9";       
         case 'South America':
           return "#FF5026";
         case 'Australia':
-          return "#82FFD2";
+          return '#5F80FA';   
         }
       })
 

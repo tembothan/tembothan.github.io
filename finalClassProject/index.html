@@ -2,9 +2,12 @@
 <html>
   <head>
     <meta charset="utf-8" />
+    <script src="https://unpkg.com/d3-3d/build/d3-3d.min.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <title>The Cost of Labor Exploitation</title>
     <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat|Assistant">
   </head>
 
   <body>
@@ -16,6 +19,8 @@
         <p>Thandiwe Tembo</p>
     </div>
 
+    <br>
+
     <div class="section">
       <p><i>"Neither slavery nor involuntary servitude, <b>except as a punishment for crime whereof the party shall have been duly convicted, 
       </b> shall exist within the United States, or any place subject to their jurisdiction." </i>
@@ -24,43 +29,31 @@
       This project explores and exposes the companies in the United States that use prison labor, how much they gain as a at the expense of inmate of it and how much inmates recive in monetary compensaton. </p>
     </div>
 
-    <hr class="solid">
+    <br><br><br>
 
     <div class="section">
-        <h1>Which companies make the most off prison labor?</h1>
+        <h2>Which companies make the most off prison labor?</h2>
     </div>
 
-    <div id="chart1">
-      <div id="tooltip">
-        Company: <span class="value"></span> <br> Revenue: $<span class="value"></span>
-      </div>
-    </div>
+    <div id="scatterPlot"></div>
 
     <div class="section">
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     </div>
 
-    <hr class="solid">
+    <br><br><br>
 
     <div class="section">
-      <h1>Question Lorem ipsum dolor sit amet?</h1>
+      <h2>Question Lorem ipsum dolor sit amet?</h2>
    </div>
 
-   <div class="section">
-      <div id="chart2"></div>
-   </div>
+    <div id="boxChart"></div>
 
    <div class="section">
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
    </div>
 
-      <div id="tooltip">
-        Name: <span class="value"></span>
-        <br>
-        Value: #<span class="value"></span>
-      </div>
-
-    <script src="./banner.js"></script>
-    <script src="./chart1.js"></script>
+    <--script src="./scatterPlot.js"><--/script>
+    <script src="./barChart.js"></script>
   </body>
 </html>
