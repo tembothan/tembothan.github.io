@@ -1,11 +1,14 @@
-var origin = [480, 300], scale = 20, j = 10, alpha = 0, beta = 0, startAngle = Math.PI/6;
-var cubesData = [];
-var svg    = d3.select("#boxChart").append('svg').call(d3.drag().on('drag', dragged).on('start', dragStart).on('end', dragEnd)).append('g');
-var color  = d3.scaleOrdinal(d3.schemeCategory20);
-var cubesGroup = svg.append('g').attr('class', 'cubes');
-var mx, my, mouseX, mouseY;
+/*var revData = d3.csv('ThePrisonIndustryData2020TopTen.csv');
+    console.log(d3.csv('ThePrisonIndustryData2020TopTen.csv'));
+    console.log("CSV: " + revData);*/
 
-var cubes3D = d3._3d()
+    var origin = [480, 300], scale = 20, j = 10, cubesData = [], alpha = 0, beta = 0, startAngle = Math.PI/6;
+    var svg    = d3.select('boxChart').append('svg').call(d3.drag().on('drag', dragged).on('start', dragStart).on('end', dragEnd)).append('g');
+    var color  = d3.scaleOrdinal(d3.schemeCategory20);
+    var cubesGroup = svg.append('g').attr('class', 'cubes');
+    var mx, my, mouseX, mouseY;
+
+    var cubes3D = d3._3d()
         .shape('CUBE')
         .x(function(d){ return d.x; })
         .y(function(d){ return d.y; })
@@ -15,7 +18,7 @@ var cubes3D = d3._3d()
         .origin(origin)
         .scale(scale);
 
-        function processData(data, tt){
+    function processData(data, tt){
 
         /* --------- CUBES ---------*/
 
@@ -89,15 +92,12 @@ var cubes3D = d3._3d()
 
     }
 
-    var revData = d3.csv('ThePrisonIndustryData2020TopTen.csv');
-    console.log("CSV: " + revData);
-
     function init(){
         cubesData = [];
         var cnt = 0;
         for(var z = -j/2; z <= j/2; z = z + 5){
             for(var x = -j; x <= j; x = x + 5){
-            var h = revData[cnt];
+            var h = d3.randomUniform(-2, -7)();
             var _cube = makeCube(h, x, z);
                 _cube.id = 'cube_' + cnt++;
                 _cube.height = h;
@@ -137,5 +137,7 @@ var cubes3D = d3._3d()
             {x: x + 1, y: h, z: z - 1}, // BACK  TOP RIGHT
         ];
     }
+
+    d3.selectAll('button').on('click', init);
 
     init();
