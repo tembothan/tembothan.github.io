@@ -24,8 +24,8 @@ body {
     margin: 0;
   }
 
-  h2{
-    font-size:3vw;
+  .chartTitle{
+    font-size:2vw;
     font-family: "Montserrat", sans-serif;
   }
 

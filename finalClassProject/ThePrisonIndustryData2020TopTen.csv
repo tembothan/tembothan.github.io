@@ -1,11 +1,11 @@
-Company,AnnualRevenuesMn,Rank
-Royal Dutch Shell,344 877.00,1
-Amazon,280 522.00,2
-Berkshire Hathaway,253 997.00,3
-McKesson,214 319.00,4
-AT&T,181 265.00,5
-Amerisource Bergen,179 589.10,6
-Ford Motor Company,155 900.00,7
-Cardinal Health,145 534.00,8
-Cigna,140 175.00,9
-General Motors,137 251.00,10
+Company,AnnualRevenuesMn,Continent
+RoyalDutchShell,344877.00,Europe
+Amazon,280522.00,NorthAmerica
+BerkshireHathaway,253997.00,NorthAmerica
+McKesson,214319.00,NorthAmerica
+AT&T,181265.00,NorthAmerica
+AmerisourceBergen,179589.10,NorthAmerica
+FordMotorCompany,155900.00,NorthAmerica
+CardinalHealth,145534.00,NorthAmerica
+Cigna,140175.00,NorthAmerica
+GeneralMotors,137251.00,NorthAmerica
