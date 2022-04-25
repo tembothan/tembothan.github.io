@@ -41,3 +41,34 @@ body {
   svg {
     display: block;
   }
+
+  .axis path, 
+  .axis line{
+    stroke: #f9f9ff;
+  }
+
+  .axis text{
+    fill: #f9f9ff;
+  }
+
+  .tick path, 
+  .tick line{
+    stroke: #f9f9ff;
+  }
+
+  .domain path, 
+  .domain line{
+    stroke: #f9f9ff;
+  }
+
+  .tick text{
+    fill: #f9f9ff;
+  }
+
+  table, th, td {
+    border: 1px solid #f9f9ff;
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  tr:hover {background-color: #3b2033;}

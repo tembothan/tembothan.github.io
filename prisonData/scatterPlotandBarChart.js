@@ -1,8 +1,8 @@
 /* ---------------------------------------------------------------- SCATTER PLOT GRAPH ---------------------------------------------------------------- */
 // dimensions and margins of graph
 var margin = {top: 20, right: 70, bottom: 20, left: 50};
-scatterWidth = screen.width - margin.left - margin.right,
-scatterHeight = 800;
+scatterWidth = 1100 - margin.left - margin.right,
+scatterHeight = 700;
 
 // X axis
 var x = d3.scaleLinear()
@@ -33,13 +33,11 @@ d3.csv("ThePrisonIndustryData2020Cleaned.csv", function(error, data) {
   scatterSVG.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + scatterHeight + ")")
-      .style("stroke", "#ffffff")
-      .call(XEmployees)
+      .call(XEmployees);
 
   scatterSVG.append("g")
       .attr("class", "y axis")
-      .style("stroke", "#ffffff")
-      .call(YAnnualRevenuesMn)
+      .call(YAnnualRevenuesMn);
 
   data.forEach(function(d) {
       Employees = d.Employees;
@@ -82,29 +80,29 @@ var key = d3.select("#scatterPlotKey")
 .append("g")
 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-key.append("circle").attr("cx",20).attr("cy",25).attr("r", 6).style("fill", "#F9ACFA")
-key.append("text").attr("x", 30).attr("y", 25).text("Asia").style("font-size", "15px").attr("alignment-baseline","middle").style("fill", "white")
+key.append("circle").attr("cx",20).attr("cy",15).attr("r", 6).style("fill", "#F9ACFA")
+key.append("text").attr("x", 30).attr("y", 15).text("Asia").style("font-size", "15px").attr("alignment-baseline","middle").style("fill", "white")
 
-key.append("circle").attr("cx",100).attr("cy",25).attr("r", 6).style("fill", "#82FFD2")
-key.append("text").attr("x", 110).attr("y", 25).text("Europe").style("font-size", "15px").attr("alignment-baseline","middle").style("fill", "white")
+key.append("circle").attr("cx",100).attr("cy",15).attr("r", 6).style("fill", "#82FFD2")
+key.append("text").attr("x", 110).attr("y", 15).text("Europe").style("font-size", "15px").attr("alignment-baseline","middle").style("fill", "white")
 
-key.append("circle").attr("cx",190).attr("cy",25).attr("r", 6).style("fill", "#E000D1")
-key.append("text").attr("x", 200).attr("y", 25).text("North America").style("font-size", "15px").attr("alignment-baseline","middle").style("fill", "white")
+key.append("circle").attr("cx",190).attr("cy",15).attr("r", 6).style("fill", "#E000D1")
+key.append("text").attr("x", 200).attr("y", 15).text("North America").style("font-size", "15px").attr("alignment-baseline","middle").style("fill", "white")
 
-key.append("circle").attr("cx",320).attr("cy",25).attr("r", 6).style("fill", "#FAF8A9")
-key.append("text").attr("x", 330).attr("y", 25).text("Australia").style("font-size", "15px").attr("alignment-baseline","middle").style("fill", "white")
+key.append("circle").attr("cx",320).attr("cy",15).attr("r", 6).style("fill", "#FAF8A9")
+key.append("text").attr("x", 330).attr("y", 15).text("Australia").style("font-size", "15px").attr("alignment-baseline","middle").style("fill", "white")
 
-key.append("circle").attr("cx",410).attr("cy",25).attr("r", 6).style("fill", "#FF5026")
-key.append("text").attr("x", 420).attr("y", 25).text("South America").style("font-size", "15px").attr("alignment-baseline","middle").style("fill", "white")
+key.append("circle").attr("cx",410).attr("cy",15).attr("r", 6).style("fill", "#FF5026")
+key.append("text").attr("x", 420).attr("y", 15).text("South America").style("font-size", "15px").attr("alignment-baseline","middle").style("fill", "white")
 
-key.append("circle").attr("cx",540).attr("cy",25).attr("r", 6).style("fill", "#5F80FA")
-key.append("text").attr("x", 550).attr("y", 25).text("Africa").style("font-size", "15px").attr("alignment-baseline","middle").style("fill", "white")
+key.append("circle").attr("cx",540).attr("cy",15).attr("r", 6).style("fill", "#5F80FA")
+key.append("text").attr("x", 550).attr("y", 15).text("Africa").style("font-size", "15px").attr("alignment-baseline","middle").style("fill", "white")
 
 /* ---------------------------------------------------------------- BAR CHART ---------------------------------------------------------------- */
 
 // set the dimensions and margins of the graph
-var margin = {top: 30, right: 30, bottom: 90, left: 70},
-    width = 460 - margin.left - margin.right,
+var margin = {top: 50, right: 30, bottom: 90, left: 70},
+    width = 800 - margin.left - margin.right,
     height = 450 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
@@ -127,12 +125,12 @@ var x = d3.scaleBand()
   .padding(0.2);
 
   svg.append("g")
+  .attr("class", "x domain")
   .attr("transform", "translate(0," + height + ")")
   .call(d3.axisBottom(x))
   .selectAll("text")
     .attr("transform", "translate(-10,0)rotate(-45)")
-    .style("text-anchor", "end")
-    .style("stroke", "#ffffff");
+    .style("text-anchor", "end");
 
 // Add Y axis
 var y = d3.scaleLinear()
@@ -140,8 +138,8 @@ var y = d3.scaleLinear()
   .range([ height, 0]);
 
   svg.append("g")
-  .call(d3.axisLeft(y))
-  .style("stroke", "#ffffff");
+  .attr("class", "y domain")
+  .call(d3.axisLeft(y));
 
 // Bars
 svg.selectAll("mybar")
@@ -149,7 +147,7 @@ svg.selectAll("mybar")
   .enter()
   .append("rect")
     .attr("x", function(d) { console.log(d.Company); return x(d.Company); })
-    .attr("width", 25)
+    .attr("width", 45)
     .style("fill", function(d) {
       switch(d.Continent) {
       case 'Europe':
@@ -168,13 +166,28 @@ svg.selectAll("mybar")
 // Animation
 svg.selectAll("rect")
   .transition()
-  .duration(800)
+  .duration(2000)
   .attr("y", function(d) { return y(d.AnnualRevenuesMn); })
   .attr("height", function(d) { return height - y(d.AnnualRevenuesMn); })
   .delay(function(d,i){//console.log(i) ; 
     return(i*100)})
 
 })
+
+/* ---------------------------------------------------------------- BAR CHART KEY ---------------------------------------------------------------- */
+
+var key = d3.select("#boxChartKey")
+.append("svg")
+.attr("width", 400 + margin.left + margin.right)
+.attr("height", 60)
+.append("g")
+.attr("transform", "translate(" + 20 + "," + 30 + ")");
+
+key.append("circle").attr("cx",50).attr("cy",5).attr("r", 6).style("fill", "#82FFD2")
+key.append("text").attr("x", 60).attr("y", 5).text("Europe").style("font-size", "15px").attr("alignment-baseline","middle").style("fill", "white")
+
+key.append("circle").attr("cx",130).attr("cy",5).attr("r", 6).style("fill", "#E000D1")
+key.append("text").attr("x", 140).attr("y", 5).text("North America").style("font-size", "15px").attr("alignment-baseline","middle").style("fill", "white")
 
 /* ---------------------------------------------------------------- 3D BAR CHART GRAPH ---------------------------------------------------------------- */
 
