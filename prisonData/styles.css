@@ -40,6 +40,10 @@ body {
     font-family: "Montserrat", sans-serif;
   }
 
+  #direction{
+    font-size:1vw;
+  }
+
   svg {
     display: block;
     margin: auto;

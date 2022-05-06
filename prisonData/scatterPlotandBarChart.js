@@ -67,7 +67,7 @@ d3.csv("ThePrisonIndustryData2020Cleaned.csv", function(error, data) {
       .append("circle")
       .attr("cx", function (d) { return x(d.Employees); } )
       .attr("cy", function (d) { return y(d.AnnualRevenuesMn); } )
-      .attr("r", 3)
+      .attr("r", 4)
       .style("fill", function(d) {
         switch(d.Continent) {
         case 'Africa':
@@ -86,19 +86,6 @@ d3.csv("ThePrisonIndustryData2020Cleaned.csv", function(error, data) {
           console.log(d.Continent)
           return "#ffffff"
         }
-      })
-      .on('mouseover', d => {
-        tooltip.transition()
-          .duration(100)
-          .style('opacity', .9);
-        tooltip.text(`text here`)
-          .style('left', `${d3.event.pageX + 2}px`)
-          .style('top', `${d3.event.pageY - 18}px`);
-      })
-      .on('mouseout', () => {
-        tooltip.transition()
-          .duration(400)
-          .style('opacity', 0);
       });
 
       x.domain([0, 700000])
@@ -113,7 +100,7 @@ d3.csv("ThePrisonIndustryData2020Cleaned.csv", function(error, data) {
       .delay(function(d,i){return(i*3)})
       .duration(2000)
       .attr("cx", function (d) { return x(d.Employees); } )
-      .attr("cy", function (d) { return y(d.AnnualRevenuesMn); } )
+      .attr("cy", function (d) { return y(d.AnnualRevenuesMn); } );
 
        // Add the brushing
     scatter
@@ -156,7 +143,7 @@ d3.csv("ThePrisonIndustryData2020Cleaned.csv", function(error, data) {
     .attr("y", 6)
     .attr("dy", "1em")
     .style("text-anchor", "end")
-    .text("Annual Revenue")
+    .text("Annual Revenue in millions")
     .style("fill", "#ffffff");
 
     scatterSVG.append("text")
@@ -263,7 +250,7 @@ svg.selectAll("mybar")
 // Animation
 svg.selectAll("rect")
   .transition()
-  .duration(4000)
+  .duration(6000)
   .attr("y", function(d) { return y(d.AnnualRevenuesMn); })
   .attr("height", function(d) { return height - y(d.AnnualRevenuesMn); })
   .delay(function(d,i){//console.log(i) ; 
