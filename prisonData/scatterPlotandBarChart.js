@@ -2,7 +2,10 @@
 // dimensions and margins of graph
 var margin = {top: 20, right: 70, bottom: 20, left: 50};
 scatterWidth = 1000 - margin.left - margin.right,
-scatterHeight = 500;
+scatterHeight = 400;
+
+var tooltip = d3.select('body').append('div')
+     .attr('id', 'tooltip');
 
 // add svg to scatter plot div
 var scatterSVG = d3.select("#scatterPlot")
@@ -50,7 +53,6 @@ d3.csv("ThePrisonIndustryData2020Cleaned.csv", function(error, data) {
       .attr("x", 0)
       .attr("y", 0);
 
-
       var brush = d3.brushX()           
       .extent( [ [0,0], [scatterWidth,scatterHeight] ] )
       .on("end", updateChart);
@@ -84,6 +86,19 @@ d3.csv("ThePrisonIndustryData2020Cleaned.csv", function(error, data) {
           console.log(d.Continent)
           return "#ffffff"
         }
+      })
+      .on('mouseover', d => {
+        tooltip.transition()
+          .duration(100)
+          .style('opacity', .9);
+        tooltip.text(`text here`)
+          .style('left', `${d3.event.pageX + 2}px`)
+          .style('top', `${d3.event.pageY - 18}px`);
+      })
+      .on('mouseout', () => {
+        tooltip.transition()
+          .duration(400)
+          .style('opacity', 0);
       });
 
       x.domain([0, 700000])
@@ -135,6 +150,22 @@ d3.csv("ThePrisonIndustryData2020Cleaned.csv", function(error, data) {
       .attr("cy", function (d) { return y(d.AnnualRevenuesMn); } )
 
     }
+
+    scatterSVG.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 6)
+    .attr("dy", "1em")
+    .style("text-anchor", "end")
+    .text("Annual Revenue")
+    .style("fill", "#ffffff");
+
+    scatterSVG.append("text")
+     .style("text-anchor", "end")
+     .attr("x", scatterWidth)
+     .attr("y", scatterHeight - 8)
+     .text("Number of Employees")
+     .style("fill", "#ffffff");
+
 });
 
 /* ---------------------------------------------------------------- SCATTER PLOT KEY ---------------------------------------------------------------- */
