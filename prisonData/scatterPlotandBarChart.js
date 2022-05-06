@@ -1,21 +1,8 @@
 /* ---------------------------------------------------------------- SCATTER PLOT GRAPH ---------------------------------------------------------------- */
 // dimensions and margins of graph
 var margin = {top: 20, right: 70, bottom: 20, left: 50};
-scatterWidth = 1100 - margin.left - margin.right,
-scatterHeight = 700;
-
-// X axis
-var x = d3.scaleLinear()
-.domain([0, 700000])
-.range([ 0, scatterWidth ]);
-
-// Y axis
-var y = d3.scaleLinear()
-.domain([0, 350000])
-.range([scatterHeight, 0]);
-
-var XEmployees = d3.axisBottom(x);
-var YAnnualRevenuesMn = d3.axisLeft(y);
+scatterWidth = 1000 - margin.left - margin.right,
+scatterHeight = 500;
 
 // add svg to scatter plot div
 var scatterSVG = d3.select("#scatterPlot")
@@ -25,56 +12,86 @@ var scatterSVG = d3.select("#scatterPlot")
 .append("g")
 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+
 //Read data
 d3.csv("ThePrisonIndustryData2020Cleaned.csv", function(error, data) {
   
   if (error) throw error;
 
-  scatterSVG.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0," + scatterHeight + ")")
+    // X axis
+    var x = d3.scaleLinear()
+    .domain([0, 0])
+    .range([ 0, scatterWidth ]);
+
+    var XEmployees = d3.axisBottom(x);
+
+    scatterSVG.append("g")
+    .attr("class", "xAxis")
+    .attr("transform", "translate(0," + scatterHeight + ")")
+    .call(XEmployees)
+    .attr("opacity", "0");
+
+    // Y axis
+    var y = d3.scaleLinear()
+    .domain([0, 350000])
+    .range([scatterHeight, 0]);
+    
+    var YAnnualRevenuesMn = d3.axisLeft(y);
+
+    scatterSVG.append("g")
+    .attr("class", "yAxis")
+    .call(YAnnualRevenuesMn);
+
+      scatterSVG.append('g')
+      .selectAll("dot")
+      .data(data)
+      .enter()
+      .append("circle")
+      .attr("cx", function (d) { console.log(d.Employees); return x(d.Employees); } )
+      .attr("cy", function (d) { console.log(d.AnnualRevenuesMn); return y(d.AnnualRevenuesMn); } )
+      .attr("r", 3)
+      .style("fill", function(d) {
+        switch(d.Continent) {
+        case 'Africa':
+          return "#5F80FA";
+        case 'Asia':
+          return "#F9ACFA";
+        case 'Europe':
+          return "#82FFD2";    
+        case 'SouthAmerica':
+          return "#FF5026";
+        case 'Australia':
+          return '#FAF8A9'; 
+        case 'NorthAmerica':
+          return "#E000D1";
+        default:
+          console.log(d.Continent)
+          return "#ffffff"
+        }
+      })
+
+
+      x.domain([0, 700000])
+      scatterSVG.select(".xAxis")
+      .transition(100)
+      .duration(2000)
+      .attr("opacity", "1")
       .call(XEmployees);
 
-  scatterSVG.append("g")
-      .attr("class", "y axis")
-      .call(YAnnualRevenuesMn);
+      scatterSVG.selectAll("circle")
+      .transition()
+      .delay(function(d,i){return(i*3)})
+      .duration(2000)
+      .attr("cx", function (d) { console.log(d.Employees); return x(d.Employees); } )
+      .attr("cy", function (d) { console.log(d.AnnualRevenuesMn); return y(d.AnnualRevenuesMn); } )
 
-  data.forEach(function(d) {
-      Employees = d.Employees;
-      AnnualRevenuesMn = d.AnnualRevenuesMn;
-      Continent = d.Continent;
-
-  scatterSVG.append("circle")
-    .attr("cx", Employees)
-    .attr("cy", AnnualRevenuesMn)
-    .attr("r", 2)
-    .style("fill", function() {
-      switch(Continent) {
-      case 'Africa':
-        return "#5F80FA";
-      case 'Asia':
-        return "#F9ACFA";
-      case 'Europe':
-        return "#82FFD2";    
-      case 'SouthAmerica':
-        return "#FF5026";
-      case 'Australia':
-        return '#FAF8A9'; 
-      case 'NorthAmerica':
-        return "#E000D1";
-      default:
-        console.log(Continent)
-        return "#ffffff"
-      }
-    })
-  });  
 });
 
 /* ---------------------------------------------------------------- SCATTER PLOT KEY ---------------------------------------------------------------- */
 
 var key = d3.select("#scatterPlotKey")
 .append("svg")
-.attr("width", width + margin.left + margin.right)
+.attr("width", 1000 + margin.left + margin.right)
 .attr("height", 80)
 .append("g")
 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -165,7 +182,7 @@ svg.selectAll("mybar")
 // Animation
 svg.selectAll("rect")
   .transition()
-  .duration(2000)
+  .duration(4000)
   .attr("y", function(d) { return y(d.AnnualRevenuesMn); })
   .attr("height", function(d) { return height - y(d.AnnualRevenuesMn); })
   .delay(function(d,i){//console.log(i) ; 
