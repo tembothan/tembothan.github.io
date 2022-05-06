@@ -23,12 +23,12 @@ d3.csv("ThePrisonIndustryData2020Cleaned.csv", function(error, data) {
     .domain([0, 0])
     .range([ 0, scatterWidth ]);
 
-    var XEmployees = d3.axisBottom(x);
+    var XEmployees = 
 
     scatterSVG.append("g")
     .attr("class", "xAxis")
     .attr("transform", "translate(0," + scatterHeight + ")")
-    .call(XEmployees)
+    .call(d3.axisBottom(x))
     .attr("opacity", "0");
 
     // Y axis
@@ -42,13 +42,30 @@ d3.csv("ThePrisonIndustryData2020Cleaned.csv", function(error, data) {
     .attr("class", "yAxis")
     .call(YAnnualRevenuesMn);
 
-      scatterSVG.append('g')
+    var clip = scatterSVG.append("defs").append("svg:clipPath")
+      .attr("id", "clip")
+      .append("svg:rect")
+      .attr("width", scatterWidth )
+      .attr("height", scatterHeight )
+      .attr("x", 0)
+      .attr("y", 0);
+
+
+      var brush = d3.brushX()           
+      .extent( [ [0,0], [scatterWidth,scatterHeight] ] )
+      .on("end", updateChart);
+
+      var scatter = scatterSVG.append('g')
+      .attr("clip-path", "url(#clip)");
+
+
+      scatter.append('g')
       .selectAll("dot")
       .data(data)
       .enter()
       .append("circle")
-      .attr("cx", function (d) { console.log(d.Employees); return x(d.Employees); } )
-      .attr("cy", function (d) { console.log(d.AnnualRevenuesMn); return y(d.AnnualRevenuesMn); } )
+      .attr("cx", function (d) { return x(d.Employees); } )
+      .attr("cy", function (d) { return y(d.AnnualRevenuesMn); } )
       .attr("r", 3)
       .style("fill", function(d) {
         switch(d.Continent) {
@@ -70,21 +87,55 @@ d3.csv("ThePrisonIndustryData2020Cleaned.csv", function(error, data) {
         }
       })
 
-
       x.domain([0, 700000])
       scatterSVG.select(".xAxis")
       .transition(100)
       .duration(2000)
       .attr("opacity", "1")
-      .call(XEmployees);
+      .call(d3.axisBottom(x));
 
       scatterSVG.selectAll("circle")
       .transition()
       .delay(function(d,i){return(i*3)})
       .duration(2000)
-      .attr("cx", function (d) { console.log(d.Employees); return x(d.Employees); } )
-      .attr("cy", function (d) { console.log(d.AnnualRevenuesMn); return y(d.AnnualRevenuesMn); } )
+      .attr("cx", function (d) { return x(d.Employees); } )
+      .attr("cy", function (d) { return y(d.AnnualRevenuesMn); } )
 
+       // Add the brushing
+    scatter
+    .append("g")
+    .attr("class", "brush")
+    .call(brush);
+
+
+    // A function that set idleTimeOut to null
+  var idleTimeout
+  function idled() { idleTimeout = null; }
+
+  // A function that update the chart for given boundaries
+  function updateChart() {
+
+    extent = d3.event.selection
+
+    // If no selection, back to initial coordinate. Otherwise, update X axis domain
+    if(!extent){
+      if (!idleTimeout) return idleTimeout = setTimeout(idled, 350); // This allows to wait a little bit
+      x.domain([ 4,8])
+    }else{
+      x.domain([ x.invert(extent[0]), x.invert(extent[1]) ])
+      scatter.select(".brush").call(brush.move, null) // This remove the grey brush area as soon as the selection has been done
+    }
+
+    // Update axis and circle position
+    XEmployees.transition().duration(1000).call(d3.axisBottom(x));
+
+    scatter
+      .selectAll("circle")
+      .transition().duration(1000)
+      .attr("cx", function (d) { return x(d.Employees); } )
+      .attr("cy", function (d) { return y(d.AnnualRevenuesMn); } )
+
+    }
 });
 
 /* ---------------------------------------------------------------- SCATTER PLOT KEY ---------------------------------------------------------------- */
