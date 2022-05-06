@@ -58,7 +58,6 @@ d3.csv("ThePrisonIndustryData2020Cleaned.csv", function(error, data) {
       var scatter = scatterSVG.append('g')
       .attr("clip-path", "url(#clip)");
 
-
       scatter.append('g')
       .selectAll("dot")
       .data(data)
@@ -85,7 +84,7 @@ d3.csv("ThePrisonIndustryData2020Cleaned.csv", function(error, data) {
           console.log(d.Continent)
           return "#ffffff"
         }
-      })
+      });
 
       x.domain([0, 700000])
       scatterSVG.select(".xAxis")

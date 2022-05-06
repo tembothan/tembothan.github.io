@@ -9,8 +9,7 @@ body {
   }
   
   #banner{
-
-      background-position: 50% 100%;
+      background-position: 30% 100%;
       background-size: cover;
       padding: 10vh 10px;
       text-align: center;
@@ -31,23 +30,19 @@ body {
     font-family: "Montserrat", sans-serif;
   }
 
-  @media (max-width: 600px) {
-    .section {
-      flex-direction: column;
-    }
-    .section svg {
-      flex: none;
-    }
-  }
-
   svg {
     display: block;
     margin: auto;
     width: 90%;
   }
 
-  .axis path, 
-  .axis line{
+  .xAxis path, 
+  .xAxis line{
+    stroke: #f9f9ff;
+  }
+
+  .yAxis path, 
+  .yAxis line{
     stroke: #f9f9ff;
   }
 
